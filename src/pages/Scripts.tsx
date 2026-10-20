@@ -4,6 +4,7 @@ import { listScripts, saveScript, deleteScript } from "@/api/scripts";
 import type { Script, ScriptLanguage } from "@/types/script";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import VersionHistory from "@/components/VersionHistory";
 
 const decode = (b64?: string) => {
   if (!b64) return "";
@@ -38,7 +39,7 @@ export default function Scripts() {
 
   const refresh = () => qc.invalidateQueries({ queryKey: ["scripts"] });
   const saveMut = useMutation({
-    mutationFn: saveScript,
+    mutationFn: (s: Script) => saveScript(s),
     onSuccess: () => {
       refresh();
       setEditing(null);
@@ -96,6 +97,8 @@ export default function Scripts() {
     });
   };
 
+  const [historyOf, setHistoryOf] = useState<Script | null>(null);
+
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
@@ -133,18 +136,21 @@ export default function Scripts() {
                   </td>
                   <td className="p-3">{new Date(s.updated_at).toLocaleString()}</td>
                   <td className="space-x-2 p-3">
-                    <Button size="sm" variant="outline" onClick={() => openEdit(s)}>
-                      Xem / Sửa
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() =>
-                        window.confirm(`Xóa ${s.script_name}?`) && delMut.mutate(s.script_id)
-                      }
-                    >
-                      Xóa
-                    </Button>
+                      <Button size="sm" variant="outline" onClick={() => setHistoryOf(s)}>
+                        Lịch sử
+                      </Button>
+                      <Button size="sm" variant="outline" onClick={() => openEdit(s)}>
+                        Xem / Sửa
+                      </Button>
+                       <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() =>
+                          window.confirm(`Xóa ${s.script_name}?`) && delMut.mutate(s.script_id)
+                        }
+                      >
+                        Xóa
+                      </Button>
                   </td>
                 </tr>
               ))}
@@ -198,6 +204,10 @@ export default function Scripts() {
             </div>
           </div>
         </div>
+      )}
+
+      {historyOf && (
+      <VersionHistory script={historyOf} onClose={() => setHistoryOf(null)} />
       )}
     </div>
   );

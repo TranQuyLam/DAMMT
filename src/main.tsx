@@ -10,6 +10,7 @@ import Scripts from "@/pages/Scripts";
 import Traffic from "@/pages/Traffic";
 import Users from "@/pages/Users";
 import Credentials from "@/pages/Credentials";
+import Dashboard from "@/pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/sites" element={<Sites />} />
             <Route path="/scripts" element={<Scripts />} />
             <Route path="/traffic" element={<Traffic />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Route>
           <Route path="*" element={<Navigate to="/sites" replace />} />
         </Routes>

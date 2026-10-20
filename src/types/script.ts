@@ -8,6 +8,7 @@ export interface Script {
   language: ScriptLanguage;
   version: number;
   content_base64?: string; 
+  note: string; 
   entry_point: string;
   status: ScriptStatus;
   created_at: string;

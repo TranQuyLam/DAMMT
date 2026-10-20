@@ -19,7 +19,7 @@ export default function Login() {
     try {
       const user = await login(username, password);
       setUser(user);
-      navigate("/sites", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Đăng nhập thất bại");
     } finally {

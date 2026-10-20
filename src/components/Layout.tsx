@@ -1,9 +1,10 @@
 import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
-import { Globe, FileCode, Activity, Users as UsersIcon, KeyRound } from "lucide-react";
 import { useAuth } from "@/store/auth";
 import { Button } from "@/components/ui/button";
+import { Globe, FileCode, Activity, Users as UsersIcon, KeyRound, LayoutDashboard } from "lucide-react";
 
 const links = [
+  { to: "/dashboard", label: "Tổng quan", icon: LayoutDashboard },
   { to: "/sites", label: "Sites", icon: Globe },
   { to: "/scripts", label: "Scripts", icon: FileCode },
   { to: "/traffic", label: "Live Traffic", icon: Activity },
