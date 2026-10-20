@@ -1,5 +1,5 @@
 import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
-import { Globe, FileCode, Activity } from "lucide-react";
+import { Globe, FileCode, Activity, Users as UsersIcon, KeyRound } from "lucide-react";
 import { useAuth } from "@/store/auth";
 import { Button } from "@/components/ui/button";
 
@@ -7,6 +7,8 @@ const links = [
   { to: "/sites", label: "Sites", icon: Globe },
   { to: "/scripts", label: "Scripts", icon: FileCode },
   { to: "/traffic", label: "Live Traffic", icon: Activity },
+  { to: "/users", label: "Users & Roles", icon: UsersIcon },
+  { to: "/credentials", label: "Credentials", icon: KeyRound },
 ];
 
 export default function Layout() {
@@ -16,12 +18,17 @@ export default function Layout() {
 
   if (!user) return <Navigate to="/login" replace />;
 
+  const adminOnly = ["/users", "/credentials"];
+  const visibleLinks = links.filter(
+  (l) => !adminOnly.includes(l.to) || user.role_name === "admin"
+);
+
   return (
     <div className="flex h-screen">
       <aside className="flex w-56 flex-col border-r bg-muted/30 p-4">
         <h1 className="mb-6 text-lg font-bold">Proxy Admin</h1>
         <nav className="flex-1 space-y-1">
-          {links.map(({ to, label, icon: Icon }) => (
+          {visibleLinks.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}

@@ -8,6 +8,8 @@ import Login from "@/pages/Login";
 import Sites from "@/pages/Sites";
 import Scripts from "@/pages/Scripts";
 import Traffic from "@/pages/Traffic";
+import Users from "@/pages/Users";
+import Credentials from "@/pages/Credentials";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +20,8 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route element={<Layout />}>
+            <Route path="/credentials" element={<Credentials />} />
+            <Route path="/users" element={<Users />} />
             <Route path="/sites" element={<Sites />} />
             <Route path="/scripts" element={<Scripts />} />
             <Route path="/traffic" element={<Traffic />} />
