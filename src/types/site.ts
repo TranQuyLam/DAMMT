@@ -13,3 +13,12 @@ export interface Site {
   created_at: string;
   updated_at: string;
 }
+
+
+export interface SiteVersion {
+  site_id: string;
+  version: number;
+  snapshot: Site; 
+  note: string;
+  created_at: string;
+}

@@ -5,6 +5,7 @@ import type { Site } from "@/types/site";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import SiteForm from "@/components/SiteForm";
+import SiteVersionHistory from "@/components/SiteVersionHistory";
 
 function matchText(s: Site) {
   const parts: string[] = [];
@@ -23,6 +24,8 @@ export default function Sites() {
 
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Site | undefined>();
+
+  const [historyOf, setHistoryOf] = useState<Site | null>(null);
 
   const refresh = () => qc.invalidateQueries({ queryKey: ["sites"] });
 
@@ -93,6 +96,9 @@ export default function Sites() {
                     </Badge>
                   </td>
                   <td className="space-x-2 p-3">
+                     <Button size="sm" variant="outline" onClick={() => setHistoryOf(s)}>
+                       Lịch sử
+                    </Button>
                     <Button size="sm" variant="outline" onClick={() => openEdit(s)}>
                       Sửa
                     </Button>
@@ -121,6 +127,9 @@ export default function Sites() {
             />
           </div>
         </div>
+      )}
+      {historyOf && (
+        <SiteVersionHistory site={historyOf} onClose={() => setHistoryOf(null)} />
       )}
     </div>
   );

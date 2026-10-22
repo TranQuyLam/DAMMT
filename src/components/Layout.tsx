@@ -2,6 +2,8 @@ import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/store/auth";
 import { Button } from "@/components/ui/button";
 import { Globe, FileCode, Activity, Users as UsersIcon, KeyRound, LayoutDashboard } from "lucide-react";
+import { useEffect } from "react";
+import { useTraffic } from "@/store/traffic";
 
 const links = [
   { to: "/dashboard", label: "Tổng quan", icon: LayoutDashboard },
@@ -16,6 +18,14 @@ export default function Layout() {
   const user = useAuth((s) => s.user);
   const logout = useAuth((s) => s.logout);
   const navigate = useNavigate();
+
+  const startTraffic = useTraffic((s) => s.start);
+  const stopTraffic = useTraffic((s) => s.stop);
+
+  useEffect(() => {
+    if (user) startTraffic();
+    return () => stopTraffic();
+  }, [user, startTraffic, stopTraffic]);
 
   if (!user) return <Navigate to="/login" replace />;
 
