@@ -11,6 +11,7 @@ import Traffic from "@/pages/Traffic";
 import Users from "@/pages/Users";
 import Credentials from "@/pages/Credentials";
 import Dashboard from "@/pages/Dashboard";
+import SensitiveRoutes from "@/pages/SensitiveRoutes";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/scripts" element={<Scripts />} />
             <Route path="/traffic" element={<Traffic />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/sensitive-routes" element={<SensitiveRoutes />} />
           </Route>
           <Route path="*" element={<Navigate to="/sites" replace />} />
         </Routes>

@@ -8,12 +8,12 @@ export interface Site {
   host?: string;
   port?: number;
   auth_required: boolean;
-  assigned_scripts: string[];
   status: SiteStatus;
   created_at: string;
   updated_at: string;
 }
 
+export type RouteType = "login" | "admin" | "api" | "other";
 
 export interface SiteVersion {
   site_id: string;

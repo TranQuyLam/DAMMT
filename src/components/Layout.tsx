@@ -1,7 +1,7 @@
 import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/store/auth";
 import { Button } from "@/components/ui/button";
-import { Globe, FileCode, Activity, Users as UsersIcon, KeyRound, LayoutDashboard } from "lucide-react";
+import { Globe, FileCode, Activity, Users as UsersIcon, KeyRound, LayoutDashboard, ShieldAlert } from "lucide-react";
 import { useEffect } from "react";
 import { useTraffic } from "@/store/traffic";
 
@@ -12,6 +12,7 @@ const links = [
   { to: "/traffic", label: "Live Traffic", icon: Activity },
   { to: "/users", label: "Users & Roles", icon: UsersIcon },
   { to: "/credentials", label: "Credentials", icon: KeyRound },
+  { to: "/sensitive-routes", label: "Đường dẫn nhạy cảm", icon: ShieldAlert },
 ];
 
 export default function Layout() {
@@ -29,7 +30,7 @@ export default function Layout() {
 
   if (!user) return <Navigate to="/login" replace />;
 
-  const adminOnly = ["/users", "/credentials"];
+  const adminOnly = ["/users", "/credentials", "/sensitive-routes"];
   const visibleLinks = links.filter(
   (l) => !adminOnly.includes(l.to) || user.role_name === "admin"
 );

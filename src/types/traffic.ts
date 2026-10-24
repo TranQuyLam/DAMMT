@@ -7,7 +7,8 @@ export interface HttpResponseData {
 export interface TrafficMessage {
   event_id: string;
   site_id: string;
-  script_name?: string;
+  script_id?: string;    
+  script_name?: string;  
   request: {
     url: string;
     method: string;
@@ -18,5 +19,5 @@ export interface TrafficMessage {
   modified_response?: HttpResponseData;
   status: string;
   timestamp: string;
-  duration_ms?: number;
+  duration_ms?: number; 
 }

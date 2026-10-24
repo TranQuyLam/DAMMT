@@ -21,7 +21,6 @@ const schema = z.object({
       (v) => v === "" || (/^\d+$/.test(v) && Number(v) >= 1 && Number(v) <= 65535),
       "Port phải từ 1 đến 65535"
     ),
-  assigned_scripts: z.string(),
   auth_required: z.boolean(),
   active: z.boolean(),
 });
@@ -50,7 +49,6 @@ export default function SiteForm({ initial, onSubmit, onCancel }: Props) {
       path_prefix: initial?.path_prefix ?? "",
       host: initial?.host ?? "",
       port: initial?.port ? String(initial.port) : "",
-      assigned_scripts: initial?.assigned_scripts.join(", ") ?? "",
       auth_required: initial?.auth_required ?? true,
       active: initial ? initial.status === "active" : true,
     },
@@ -66,10 +64,6 @@ export default function SiteForm({ initial, onSubmit, onCancel }: Props) {
       host: v.host || undefined,
       port: v.port ? Number(v.port) : undefined,
       auth_required: v.auth_required,
-      assigned_scripts: v.assigned_scripts
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean),
       status: v.active ? "active" : "inactive",
       created_at: initial?.created_at ?? now,
       updated_at: now,
@@ -115,16 +109,6 @@ export default function SiteForm({ initial, onSubmit, onCancel }: Props) {
           <input className={inputCls} placeholder="8080" {...register("port")} />
           {err(errors.port?.message)}
         </div>
-      </div>
-      <div>
-        <label className="mb-1 block text-sm font-medium">
-          Scripts gán cho site (cách nhau bằng dấu phẩy)
-        </label>
-        <input
-          className={inputCls}
-          placeholder="modify_google.py, add_banner.js"
-          {...register("assigned_scripts")}
-        />
       </div>
       <div className="flex gap-6 text-sm">
         <label className="flex items-center gap-2">

@@ -24,7 +24,6 @@ export default function Sites() {
 
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Site | undefined>();
-
   const [historyOf, setHistoryOf] = useState<Site | null>(null);
 
   const refresh = () => qc.invalidateQueries({ queryKey: ["sites"] });
@@ -73,7 +72,6 @@ export default function Sites() {
                 <th className="p-3">Tên</th>
                 <th className="p-3">Điều kiện khớp</th>
                 <th className="p-3">Target URL</th>
-                <th className="p-3">Scripts</th>
                 <th className="p-3">Auth</th>
                 <th className="p-3">Trạng thái</th>
                 <th className="p-3">Thao tác</th>
@@ -86,9 +84,6 @@ export default function Sites() {
                   <td className="p-3">{s.name}</td>
                   <td className="p-3">{matchText(s)}</td>
                   <td className="p-3">{s.target_url}</td>
-                  <td className="p-3">
-                    {s.assigned_scripts.join(", ") || "-"}
-                  </td>
                   <td className="p-3">{s.auth_required ? "Có" : "Không"}</td>
                   <td className="p-3">
                     <Badge variant={s.status === "active" ? "default" : "secondary"}>
@@ -96,8 +91,8 @@ export default function Sites() {
                     </Badge>
                   </td>
                   <td className="space-x-2 p-3">
-                     <Button size="sm" variant="outline" onClick={() => setHistoryOf(s)}>
-                       Lịch sử
+                    <Button size="sm" variant="outline" onClick={() => setHistoryOf(s)}>
+                      Lịch sử
                     </Button>
                     <Button size="sm" variant="outline" onClick={() => openEdit(s)}>
                       Sửa
@@ -128,6 +123,7 @@ export default function Sites() {
           </div>
         </div>
       )}
+
       {historyOf && (
         <SiteVersionHistory site={historyOf} onClose={() => setHistoryOf(null)} />
       )}

@@ -11,7 +11,6 @@ const FIELDS: { key: keyof Site; label: string }[] = [
   { key: "host", label: "Host" },
   { key: "port", label: "Port" },
   { key: "auth_required", label: "Yêu cầu đăng nhập" },
-  { key: "assigned_scripts", label: "Scripts" },
   { key: "status", label: "Trạng thái" },
 ];
 
